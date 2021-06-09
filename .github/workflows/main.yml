@@ -39,6 +39,7 @@ jobs:
           west update
           west zephyr-export
           pip3 install --user -r ~/zephyrproject/zephyr/scripts/requirements.txt
+          echo "${{secrets.MCUBOOT_KEY}}" > bootloader/mcuboot/root-ec-p256.pem
           
 
       - name: Build FW
