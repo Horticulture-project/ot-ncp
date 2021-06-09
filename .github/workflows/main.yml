@@ -51,9 +51,13 @@ jobs:
         run: |
           cd ~/zephyrproject
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf
-          cp build/zephyr/zephyr.signed.bin /tmp/particle_xenon.bin
+          cp build/zephyr/zephyr.signed.bin /tmp/ncp-particle_xenon.bin
           west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine
-          cp build/zephyr/zephyr.signed.bin /tmp/e73minimal_nrf52840.bin
+          cp build/zephyr/zephyr.signed.bin /tmp/ncp-e73minimal_nrf52840.bin
+          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-rcp.conf"
+          cp build/zephyr/zephyr.signed.bin /tmp/rcp-particle_xenon.bin
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-rcp.conf"
+          cp build/zephyr/zephyr.signed.bin /tmp/rcp-e73minimal_nrf52840.bin
           
 
       - name: Release
@@ -61,8 +65,10 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: 
-            /tmp/particle_xenon.bin
-            /tmp/e73minimal_nrf52840.bin
+            /tmp/ncp-particle_xenon.bin
+            /tmp/ncp-e73minimal_nrf52840.bin
+            /tmp/rcp-particle_xenon.bin
+            /tmp/rcp-e73minimal_nrf52840.bin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
