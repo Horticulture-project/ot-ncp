@@ -64,7 +64,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: 
+          files: |
             /tmp/ncp-particle_xenon.bin
             /tmp/ncp-e73minimal_nrf52840.bin
             /tmp/rcp-particle_xenon.bin
