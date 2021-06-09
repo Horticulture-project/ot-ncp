@@ -1,4 +1,4 @@
-OpenThread Co-Processor
+# OpenThread Co-Processor
 #######################
 
 Overview
