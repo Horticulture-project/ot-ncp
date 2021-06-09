@@ -50,18 +50,19 @@ jobs:
       - name: Build FW
         run: |
           cd ~/zephyrproject
-          west build $GITHUB_WORKSPACE -b particle_xenon --pristine
-          cat build/zephyr/zephyr.signed.hex
+          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf
           cp build/zephyr/zephyr.signed.bin /tmp/particle_xenon.bin
           west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine
-          cp build/zephyr/zephyr.signed.bin /tmp/particle_xenon.bin
+          cp build/zephyr/zephyr.signed.bin /tmp/e73minimal_nrf52840.bin
           
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: /tmp/particle_xenon.bin
+          files: 
+            /tmp/particle_xenon.bin
+            /tmp/e73minimal_nrf52840.bin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
