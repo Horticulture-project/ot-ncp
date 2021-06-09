@@ -15,8 +15,7 @@ LOG_MODULE_REGISTER(ot_br, LOG_LEVEL_DBG);
 
 #define APP_BANNER "***** OpenThread NCP on Zephyr %s *****"
 
-void main(void)
-{
+void main(void) {
 #if defined(CONFIG_OPENTHREAD_COPROCESSOR_SPINEL_ON_UART_ACM)
 	const struct device *dev;
 	uint32_t baudrate = 0U;

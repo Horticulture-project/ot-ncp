@@ -51,6 +51,9 @@ jobs:
         run: |
           cd ~/zephyrproject
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine
+          cat build/zephyr/zephyr.signed.hex
+          cp build/zephyr/zephyr.signed.bin /tmp/particle_xenon.bin
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine
           cp build/zephyr/zephyr.signed.bin /tmp/particle_xenon.bin
           
 
