@@ -8,10 +8,6 @@ on:
       - "v*"
     branches:
       - main
-      - test
-  release:
-    types: 
-      - prereleased
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -69,6 +65,7 @@ jobs:
             /tmp/ncp-e73minimal_nrf52840.bin
             /tmp/rcp-particle_xenon.bin
             /tmp/rcp-e73minimal_nrf52840.bin
+          draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
