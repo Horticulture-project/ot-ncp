@@ -7,10 +7,6 @@ on:
     branches:
       - main
       - test
-  pull_request:
-    branches:
-      - main
-      - test
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -64,7 +60,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: 
+          files: |
             /tmp/ncp-particle_xenon.bin
             /tmp/ncp-e73minimal_nrf52840.bin
             /tmp/rcp-particle_xenon.bin
