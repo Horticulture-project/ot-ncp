@@ -53,6 +53,14 @@ jobs:
           cp build/zephyr/zephyr.signed.bin /tmp/rcp-particle_xenon.bin
           west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-rcp.conf"
           cp build/zephyr/zephyr.signed.bin /tmp/rcp-e73minimal_nrf52840.bin
+          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf;overlay-no-bootloader.conf"
+          cp build/zephyr/zephyr.bin /tmp/ncp-particle_xenon_no_bootloader.bin
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-no-bootloader.conf"
+          cp build/zephyr/zephyr.bin /tmp/ncp-e73minimal_nrf52840_no_bootloader.bin
+          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-rcp.conf;overlay-no-bootloader.conf"
+          cp build/zephyr/zephyr.bin /tmp/rcp-particle_xenon_no_bootloader.bin
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-rcp.conf;overlay-no-bootloader.conf"
+          cp build/zephyr/zephyr.bin /tmp/rcp-e73minimal_nrf52840_no_bootloader.bin
           
 
       - name: Release
@@ -64,6 +72,10 @@ jobs:
             /tmp/ncp-e73minimal_nrf52840.bin
             /tmp/rcp-particle_xenon.bin
             /tmp/rcp-e73minimal_nrf52840.bin
+            /tmp/ncp-particle_xenon_no_bootloader.bin
+            /tmp/ncp-e73minimal_nrf52840_no_bootloader.bin
+            /tmp/rcp-particle_xenon_no_bootloader.bin
+            /tmp/rcp-e73minimal_nrf52840_no_bootloader.bin
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
