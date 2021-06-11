@@ -42,26 +42,29 @@ jobs:
           echo "${{secrets.MCUBOOT_KEY}}" > bootloader/mcuboot/root-ec-p256.pem
           
 
-      - name: Build FW
+      - name: Build FW for Particle_xenon
         run: |
           cd ~/zephyrproject
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf
           cp build/zephyr/zephyr.signed.hex /tmp/ncp-particle_xenon.hex
-          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine
-          cp build/zephyr/zephyr.signed.hex /tmp/ncp-e73minimal_nrf52840.hex
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-rcp.conf"
           cp build/zephyr/zephyr.signed.hex /tmp/rcp-particle_xenon.hex
-          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-rcp.conf"
-          cp build/zephyr/zephyr.signed.hex /tmp/rcp-e73minimal_nrf52840.hex
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf;overlay-no-bootloader.conf"
           cp build/zephyr/zephyr.hex /tmp/ncp-particle_xenon_no_bootloader.hex
-          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-no-bootloader.conf"
-          cp build/zephyr/zephyr.hex /tmp/ncp-e73minimal_nrf52840_no_bootloader.hex
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-rcp.conf;overlay-no-bootloader.conf"
           cp build/zephyr/zephyr.hex /tmp/rcp-particle_xenon_no_bootloader.hex
+
+      - name: Build FW for E73-Minimal 
+        run: |
+          cd ~/zephyrproject
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine
+          cp build/zephyr/zephyr.signed.hex /tmp/ncp-e73minimal_nrf52840.hex
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-rcp.conf"
+          cp build/zephyr/zephyr.signed.hex /tmp/rcp-e73minimal_nrf52840.hex
+          west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-no-bootloader.conf"
+          cp build/zephyr/zephyr.hex /tmp/ncp-e73minimal_nrf52840_no_bootloader.hex
           west build $GITHUB_WORKSPACE -b e73minimal_nrf52840 --pristine -- -D OVERLAY_CONFIG="overlay-rcp.conf;overlay-no-bootloader.conf"
           cp build/zephyr/zephyr.hex /tmp/rcp-e73minimal_nrf52840_no_bootloader.hex
-          
 
       - name: Release
         uses: softprops/action-gh-release@v1
