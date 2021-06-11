@@ -45,11 +45,11 @@ jobs:
       - name: Build FW for Particle_xenon
         run: |
           cd ~/zephyrproject
-          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf
+          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf"
           cp build/zephyr/zephyr.signed.hex /tmp/ncp-particle_xenon.hex
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-rcp.conf"
           cp build/zephyr/zephyr.signed.hex /tmp/rcp-particle_xenon.hex
-          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG=overlay-usb-nrf-br.conf;overlay-no-bootloader.conf"
+          west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-no-bootloader.conf"
           cp build/zephyr/zephyr.hex /tmp/ncp-particle_xenon_no_bootloader.hex
           west build $GITHUB_WORKSPACE -b particle_xenon --pristine -- -D OVERLAY_CONFIG="overlay-usb-nrf-br.conf;overlay-rcp.conf;overlay-no-bootloader.conf"
           cp build/zephyr/zephyr.hex /tmp/rcp-particle_xenon_no_bootloader.hex
