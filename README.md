@@ -17,4 +17,3 @@ The preferred Co-Processor configuration of OpenThread is RCP now.
 [![Lint Code](https://github.com/Horticulture-project/ot-ncp/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![Build FW for Particle Xenon](https://github.com/Horticulture-project/ot-ncp/workflows/BuildFirmware/badge.svg?step=Build%20FW%20for%20Particle_xenon)](https://github.com/Horticulture-project/Horticulture-LED-fw/actions)
 [![Build FW for E73-Minimal](https://github.com/Horticulture-project/ot-ncp/workflows/BuildFirmware/badge.svg?step=Build%20FW%20for%20E73-Minimal)](https://github.com/Horticulture-project/Horticulture-LED-fw/actions)
-
