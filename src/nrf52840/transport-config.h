@@ -74,7 +74,7 @@
  *
  */
 #ifndef UART_HWFC_ENABLED
-#define UART_HWFC_ENABLED 1
+#define UART_HWFC_ENABLED 0
 #endif
 
 /**
@@ -142,7 +142,7 @@
  *
  */
 #ifndef UART_PIN_TX
-#define UART_PIN_TX 6
+#define UART_PIN_TX 43
 #endif
 
 /**
@@ -152,7 +152,7 @@
  *
  */
 #ifndef UART_PIN_RX
-#define UART_PIN_RX 8
+#define UART_PIN_RX 42
 #endif
 
 /**
