@@ -54,6 +54,7 @@ jobs:
         submodules: true
     - name: Bootstrap
       run: |
+        chmod +x script/*
         script/bootstrap
     
     - name: Build
