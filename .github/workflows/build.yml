@@ -1,0 +1,88 @@
+#
+#  Copyright (c) 2020, The OpenThread Authors.
+#  All rights reserved.
+#
+#  Redistribution and use in source and binary forms, with or without
+#  modification, are permitted provided that the following conditions are met:
+#  1. Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#  2. Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in the
+#     documentation and/or other materials provided with the distribution.
+#  3. Neither the name of the copyright holder nor the
+#     names of its contributors may be used to endorse or promote products
+#     derived from this software without specific prior written permission.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+#  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+#  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+#  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+#  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+#  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+#  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+#  POSSIBILITY OF SUCH DAMAGE.
+#
+
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+
+  cancel-previous-runs:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: rokroskar/workflow-run-cleanup-action@master
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      if: "github.ref != 'refs/heads/main'"
+
+  pretty:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - name: Bootstrap
+      run: |
+        chmod +x $GITHUB_WORKSPACE/script/bootstrap
+        $GITHUB_WORKSPACE/script/bootstrap
+    
+    - name: Build
+      run: |
+        cd $GITHUB_WORKSPACE
+        chmod +x $GITHUB_WORKSPACE/script/build
+        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.1
+        arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ot-1_1.hex
+        rm -rf build
+        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.2
+        arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ot-1_2.hex
+        rm -rf build
+        script/build nrf52840 UART_trans  -DOT_THREAD_VERSION=1.1
+        arm-none-eabi-objcopy -O ihex build/bin/build/bin/ot-rcp  /tmp/rcp-e73_ot-1_1.hex
+        rm -rf build
+        script/build nrf52840 UART_trans  -DOT_THREAD_VERSION=1.2
+        arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-e73_ot-1_2.hex
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          /tmp/rcp-particle_xenon_ot-1_2.hex
+          /tmp/rcp-particle_xenon_ot-1_1.hex
+          /tmp/rcp-e73_ot-1_1.hex
+          /tmp/rcp-e73_ot-1_2.hex
+        prerelease: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
