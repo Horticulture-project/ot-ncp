@@ -30,11 +30,8 @@ name: Build
 
 on:
   push:
-    branches-ignore:
-      - 'dependabot/**'
-  pull_request:
-    branches:
-      - 'main'
+    tags:
+      - "v*"
 
 jobs:
 
