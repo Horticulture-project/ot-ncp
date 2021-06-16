@@ -125,7 +125,6 @@ jobs:
             /tmp/rcp-particle_xenon_ot-1_1.hex
             /tmp/rcp-e73_ot-1_1.hex
             /tmp/rcp-e73_ot-1_2.hex
-            
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
