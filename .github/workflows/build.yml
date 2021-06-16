@@ -54,7 +54,7 @@ jobs:
         submodules: true
     - name: Bootstrap
       run: |
-        ./script/bootstrap
+        script/bootstrap
     
     - name: Build
       run: |
