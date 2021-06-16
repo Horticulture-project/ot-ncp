@@ -54,11 +54,11 @@ jobs:
         submodules: true
     - name: Bootstrap
       run: |
-        chmod +x script/*
-        script/bootstrap
+        $GITHUB_WORKSPACE/script/bootstrap
     
     - name: Build
       run: |
+        cd $GITHUB_WORKSPACE
         script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.1
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ot-1_1.hex
         rm -rf build
