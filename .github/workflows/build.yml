@@ -113,9 +113,6 @@ jobs:
         script/build nrf52840 UART_trans  -DOT_THREAD_VERSION=1.2
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-e73_ot-1_2.hex
 
-
-
-
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -126,6 +123,6 @@ jobs:
           /tmp/rcp-e73_ot-1_1.hex
           /tmp/rcp-e73_ot-1_2.hex
         prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
