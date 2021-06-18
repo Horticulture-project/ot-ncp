@@ -359,6 +359,19 @@ void nrf5RadioInit(void)
 {
     dataInit();
     nrf_802154_init();
+#if PARTICLE_EXTERNAL_ANTENNA
+    nrf_gpio_cfg_output(24);
+    nrf_gpio_cfg_output(25);
+    nrf_gpio_pin_clear(24);
+    nrf_gpio_pin_set(25);
+#endif // PARTICLE_EXTERNAL_ANTENNA
+
+#if PARTICLE_INTERNAL_ANTENNA
+    nrf_gpio_cfg_output(24);
+    nrf_gpio_cfg_output(25);
+    nrf_gpio_pin_set(24);
+    nrf_gpio_pin_clear(25)
+#endif // PARTICLE_INTERNAL_ANTENNA
 }
 
 void nrf5RadioDeinit(void)
