@@ -61,7 +61,7 @@
 #include <nrf.h>
 #include <nrf_802154.h>
 #include <nrf_802154_pib.h>
-
+#include <nrf_gpio.h>
 #include <openthread-core-config.h>
 #include <openthread/config.h>
 #include <openthread/random_noncrypto.h>
