@@ -370,7 +370,7 @@ void nrf5RadioInit(void)
     nrf_gpio_cfg_output(24);
     nrf_gpio_cfg_output(25);
     nrf_gpio_pin_set(24);
-    nrf_gpio_pin_clear(25)
+    nrf_gpio_pin_clear(25);
 
 }
 
