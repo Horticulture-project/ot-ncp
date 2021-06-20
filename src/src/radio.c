@@ -61,7 +61,7 @@
 #include <nrf.h>
 #include <nrf_802154.h>
 #include <nrf_802154_pib.h>
-
+#include <nrf_gpio.h>
 #include <openthread-core-config.h>
 #include <openthread/config.h>
 #include <openthread/random_noncrypto.h>
@@ -370,7 +370,7 @@ void nrf5RadioInit(void)
     nrf_gpio_cfg_output(24);
     nrf_gpio_cfg_output(25);
     nrf_gpio_pin_set(24);
-    nrf_gpio_pin_clear(25)
+    nrf_gpio_pin_clear(25);
 #endif // PARTICLE_INTERNAL_ANTENNA
 }
 
