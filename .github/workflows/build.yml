@@ -58,16 +58,16 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         chmod +x $GITHUB_WORKSPACE/script/build
-        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.1 -DPARTICLE_INTERNAL_ANTENNA=1
+        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.1 -DOT_PLATFORM_DEFINES=PARTICLE_INTERNAL_ANTENNA=1
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ot-1_1.hex
         rm -rf build
-        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.2 -DPARTICLE_INTERNAL_ANTENNA=1
+        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.2 -DOT_PLATFORM_DEFINES=PARTICLE_INTERNAL_ANTENNA=1
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ot-1_2.hex
         rm -rf build
-        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.1 -DPARTICLE_EXTERNAL_ANTENNA=1
+        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.1 -DOT_PLATFORM_DEFINES=PARTICLE_EXTERNAL_ANTENNA=1
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ext_ant_ot-1_1.hex
         rm -rf build
-        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.2 -DPARTICLE_EXTERNAL_ANTENNA=1
+        script/build nrf52840 USB_trans  -DOT_THREAD_VERSION=1.2 -DOT_PLATFORM_DEFINES=PARTICLE_EXTERNAL_ANTENNA=1
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-particle_xenon_ext_ant_ot-1_2.hex
         rm -rf build
         script/build nrf52840 UART_trans  -DOT_THREAD_VERSION=1.1
@@ -85,8 +85,6 @@ jobs:
           /tmp/rcp-particle_xenon_ot-1_1.hex
           /tmp/rcp-particle_xenon_ext_ant_ot-1_1.hex
           /tmp/rcp-particle_xenon_ext_ant_ot-1_2.hex
-          /tmp/rcp-e73_ot-1_1.hex
-          /tmp/rcp-e73_ot-1_2.hex
         prerelease: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

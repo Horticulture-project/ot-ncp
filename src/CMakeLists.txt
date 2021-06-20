@@ -70,8 +70,6 @@ set(NRF_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/openthread/examples/platforms
 )
-option(PARTICLE_EXTERNAL_ANTENNA "Use external antenna on Particle" ON)
-option(PARTICLE_INTERNAL_ANTENNA "Use internal antenna on Particle" OFF)
 
 if(NRF_PLATFORM STREQUAL "nrf52811")
     set(NRF_TRANSPORT_SOURCES
