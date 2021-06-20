@@ -363,7 +363,7 @@ void nrf5RadioInit(void)
     nrf_gpio_cfg_output(24);
     nrf_gpio_cfg_output(25);
     nrf_gpio_pin_clear(24);
-    nrf_gpio_pin_set(25)
+    nrf_gpio_pin_set(25);
 #endif // PARTICLE_EXTERNAL_ANTENNA
 
 #if PARTICLE_INTERNAL_ANTENNA
