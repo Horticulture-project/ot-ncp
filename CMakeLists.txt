@@ -44,6 +44,8 @@ set(OT_PLATFORM_LIB "openthread-${NRF_PLATFORM}" "openthread-${NRF_PLATFORM}-tra
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+option(PARTICLE_EXTERNAL_ANTENNA "Use external antenna on Particle" OFF)
+option(PARTICLE_INTERNAL_ANTENNA "Use internal antenna on Particle" OFF)
 
 add_subdirectory(openthread)
 
