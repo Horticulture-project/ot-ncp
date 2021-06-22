@@ -88,14 +88,8 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
-          /tmp/rcp-particle_xenon_ot-1_2.hex
           /tmp/rcp-particle_xenon_ot-1_1.hex
           /tmp/rcp-particle_xenon_ext_ant_ot-1_1.hex
-          /tmp/rcp-particle_xenon_ext_ant_ot-1_2.hex
-          /tmp/ncp-particle_xenon_ot-1_2.hex
-          /tmp/ncp-particle_xenon_ot-1_1.hex
-          /tmp/ncp-particle_xenon_ext_ant_ot-1_1.hex
-          /tmp/ncp-particle_xenon_ext_ant_ot-1_2.hex
         prerelease: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
