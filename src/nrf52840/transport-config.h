@@ -162,7 +162,7 @@
  *
  */
 #ifndef UART_PIN_CTS
-#define UART_PIN_CTS 7
+#define UART_PIN_CTS 22
 #endif
 
 /**
@@ -172,7 +172,7 @@
  *
  */
 #ifndef UART_PIN_RTS
-#define UART_PIN_RTS 5
+#define UART_PIN_RTS 20
 #endif
 
 /*******************************************************************************
