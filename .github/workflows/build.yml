@@ -53,7 +53,7 @@ jobs:
       run: |
         chmod +x $GITHUB_WORKSPACE/script/bootstrap
         $GITHUB_WORKSPACE/script/bootstrap
-    
+        
     - name: Build
       run: |
         cd $GITHUB_WORKSPACE
@@ -81,8 +81,25 @@ jobs:
         script/build nrf52840 UART_trans  -DOT_THREAD_VERSION=1.2
         arm-none-eabi-objcopy -O ihex build/bin/ot-rcp /tmp/rcp-e73_ot-1_2.hex
         arm-none-eabi-objcopy -O ihex build/bin/ot-ncp-ftd /tmp/ncp-e73_ot-1_2.hex
-        
-
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+    - name: Prepare files in release folder
+      run: |
+        mkdir $GITHUB_WORKSPACE/${{ steps.get_version.outputs.VERSION }}
+        cp /tmp/*.hex $GITHUB_WORKSPACE/${{ steps.get_version.outputs.VERSION }}/
+        ls $GITHUB_WORKSPACE/
+        ls $GITHUB_WORKSPACE/${{ steps.get_version.outputs.VERSION }}
+    - name: deploy file to server
+      uses: Horticulture-project/SFTP-Deploy-Action@v1.2.2
+      with:
+        username: 'horti'
+        server: '${{ secrets.DEPLOY_SERVER_IP }}'
+        ssh_private_key: '${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}'
+        local_path: './${{ steps.get_version.outputs.VERSION }}'
+        remote_path: 'releases'
+        args: '-o ConnectTimeout=5'
+  
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -93,5 +110,6 @@ jobs:
           /tmp/rcp-e73_ot-1_1.hex
         prerelease: true
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+
 
