@@ -49,11 +49,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: true
-    - name: Bootstrap
-      run: |
-        chmod +x $GITHUB_WORKSPACE/script/bootstrap
-        $GITHUB_WORKSPACE/script/bootstrap
-        
     - name: Build
       run: |
         cd $GITHUB_WORKSPACE
