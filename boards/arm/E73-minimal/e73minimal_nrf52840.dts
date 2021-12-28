@@ -96,8 +96,8 @@
 	compatible = "nordic,nrf-uarte";
 	status = "okay";
 	current-speed = <115200>;
-	tx-pin = <42>;
-	rx-pin = <43>;
+	tx-pin = <43>;
+	rx-pin = <42>;
 };
 
 
